@@ -1,0 +1,28 @@
+
+{% extends 'task/base.html' %}
+    {% block content %}
+      <h1>{{ user.username }}</h1>
+      <p>Email: {{ user.email }}</p>
+    
+      <h2>Assigned tasks:</h2>
+      {% if user.tasks.count > 0 %}
+        <ul>
+          {% for task in user.tasks.all %}
+            <li><a href="{% url 'task_detail' task.id %}">{{ task.name }}</a></li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No tasks assigned to this user.</p>
+      {% endif %}
+    
+      <h2>Comments:</h2>
+      {% if user.comments.count > 0 %}
+        <ul>
+          {% for comment in user.comments.all %}
+            <li>{{ comment.text }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No comments for this user.</p>
+      {% endif %}
+    {% endblock %}

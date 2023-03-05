@@ -1,0 +1,13 @@
+
+
+{% block content %}
+<h1>Profile</h1>
+<p>Username: {{ request.user.username }}</p>
+<p>Email: {{ request.user.email }}</p>
+<p>New tasks: {{ new_count }}</p>
+<p>Tasks in progress: {{ in_progress_count }}</p>
+<p>Completed tasks: {{ completed_count }}</p>
+<p>Percentage completed: {{ completed_percentage }}%</p>
+<a href="{% url 'tasks' %}">Go back</a>
+
+{% endblock %}

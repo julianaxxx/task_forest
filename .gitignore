@@ -1,0 +1,17 @@
+# Ignore Python compiled files
+*.pyc
+__pycache__/
+.env
+logs/
+*.sqlite3
+venv/
+.DS_Store
+.vscode/
+.idea/
+*.so
+*.o
+*.dll
+.pytest_cache/
+**/migrations/
+Dockerfile
+.dockerignore

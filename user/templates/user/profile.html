@@ -8,6 +8,8 @@
 <p>Tasks in progress: {{ in_progress_count }}</p>
 <p>Completed tasks: {{ completed_count }}</p>
 <p>Percentage completed: {{ completed_percentage }}%</p>
+
+<img src="{{ task_status_image }}" alt="Task Status Pie Chart">
 <a href="{% url 'tasks' %}">Go back</a>
 
 {% endblock %}

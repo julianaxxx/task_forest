@@ -20,4 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('task.urls')),
     path('',include('user.urls')),
+    path('',include('pet.urls')),
+    
 ]

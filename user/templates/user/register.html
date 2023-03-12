@@ -1,4 +1,4 @@
-
+{% extends 'task/base.html' %}
 {% block content %}
 
 <div class="header-bar">
@@ -20,9 +20,8 @@
         <label>{{form.password2.label}}</label>
         {{form.password2}}
     <br>
-        <input style="margin-top:10px ;" class="button" type="submit" value="Register">
+        <input style="margin-top:10px ;" class="submit-button" type="submit" value="Register">
     </form>
-    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
 </div>
 
 {% endblock content %}

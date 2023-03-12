@@ -1,0 +1,25 @@
+{% extends 'task/base.html' %}
+
+{% block content %}
+<h1>Welcome {{ user.username }}!</h1>
+<h2>Create your pet</h2>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <label for="pet_name">Pet name:</label>
+  <input type="text" name="pet_name" id="pet_name" required>
+  <br>
+  <div class="sprites">
+    {% load static %}
+    {% for species in species_list %}
+      <label for="pet_species_{{ species.id }}">
+        <input type="radio" name="pet_species" id="pet_species_{{ species.id }}" value="{{ species.id }}" required>
+        <img src="{% static 'pet/animals/' %}{{ species.sprite }}" alt="{{ species.name }}">
+      </label> 
+    {% endfor %} 
+  </div>
+  
+  <br>
+  <button type="submit">Create pet</button>
+</form>
+
+{% endblock %}

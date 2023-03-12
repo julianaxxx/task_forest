@@ -1,10 +1,14 @@
 {% extends 'task/base.html' %}
+
 {% block content %}
-      <h1>{% if task.id %}Update{% else %}Create{% endif %} Task</h1>
-      <a href="{% url 'tasks' %}">Go Back</a>
-      <form method="post" action="">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Submit">
-      </form> 
+  <h1>{% if task.id %}Update{% else %}Create{% endif %} Task</h1>
+
+  <form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <a href="{% url 'tasks' %}">Go Back</a>
+    <input class="submit-button" type="submit" value="Submit">
+   
+  </form>
+  
 {% endblock %}

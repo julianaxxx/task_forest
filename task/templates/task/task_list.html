@@ -1,14 +1,8 @@
+{% extends 'task/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
 
-
-  
-  {%if request.user.is_authenticated%}
-  <p>{{request.user}}</p>
-  <a href="{%url 'profile'%}">My Profile</a>
-  <a href="{%url 'logout'%}">Logout</a>
-  {%else%}
-  <a href="{%url 'login'%}">Login</a>
-  {%endif%}
-  <hr>
       <h1>Task List</h1>
       <a href="{% url 'task-create' %}">Add Task</a>
       <form method="get">
@@ -25,29 +19,25 @@
       
       <form method="get">
         <input type="text" name="search-area" >
-        <input type="submit" value="Search">
+        <input class="submit-button" type="submit" value="Search">
       </form>
       <table>
         <thead>
           <tr>
             <th>Task Name</th>
-      
             <th>Status</th>
-      
-          
+            <th>Due Date</th>
           </tr>
         </thead>
 
         <tbody>
           {% for task in tasks %}
             <tr>
-              <td>{{ task.name }}</td>
-              
+              <td><a href="{% url 'task' task.id %}">{{ task.name }}</a></td>
               <td>{{ task.status }}</td>
-        
-              <td><a href="{% url 'task' task.id %}">View</a></td>
-              <td><a href="{% url 'task-update' task.id %}">Edit</a></td>
-              <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
+              <td>{{ task.due_date }}</td>
+              <td><a href="{% url 'task-delete' task.id %}">
+                <img src="static/trash.png" alt="delete" id="trash"></a></td>
             </tr>
           {% empty %}
             <tr>
@@ -56,5 +46,64 @@
           {% endfor %}
         </tbody>
       </table>
-
-
+      {% if user.pet %}
+      {% load static %}
+      <canvas id="animation-canvas" width="800" height="32"></canvas>
+      <script>
+          // Load sprite sheet image
+          const spriteSheet = new Image();
+          spriteSheet.src = "{% static 'pet/sprite/' %}{{ user.pet.species.name }}.png";
+      
+          // Define the dimensions of each frame in the sprite sheet
+          const frameWidth = 32;
+          const frameHeight = 32;
+      
+          // Define the number of frames in the sprite sheet
+          const numFrames = 4;
+      
+          // Define the list of Rect objects that represent each frame in the sprite sheet
+          const frames = [...Array(numFrames).keys()].map(x => ({
+              x: x * frameWidth,
+              y: 0,
+              width: frameWidth,
+              height: frameHeight,
+          }));
+      
+          // Set up the animation on the canvas
+          const canvas = document.getElementById("animation-canvas");
+          const ctx = canvas.getContext("2d");
+          let currentFrame = 0;
+          const frameRate = 10;
+      
+          // Define the position of the sprite
+          let x = 0;
+          const y = 0;
+          const speed = 5; // Change this value to adjust the speed of the sprite
+      
+          function animate() {
+              // Draw the current frame of the animation
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(spriteSheet, frames[currentFrame].x, frames[currentFrame].y, frames[currentFrame].width, frames[currentFrame].height, x, y, frameWidth, frameHeight);
+      
+              // Update the current frame of the animation
+              currentFrame = (currentFrame + 1) % numFrames;
+      
+              // Update the position of the sprite
+              x += speed;
+      
+              // If the sprite goes off the right side of the canvas, reset its position to the left
+              if (x > canvas.width) {
+                  x = -frameWidth;
+              }
+      
+              // Control the frame rate
+              setTimeout(animate, 1000 / frameRate);
+          }
+      
+          // Start the animation when the sprite sheet image has loaded
+          spriteSheet.onload = animate;
+      </script>
+  {% else %}
+  {% endif %}
+  
+{% endblock %}

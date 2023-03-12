@@ -1,0 +1,58 @@
+{% extends 'task/base.html' %}
+
+{% block content %}
+<div class="container-timer">
+  <h1>Timer</h1>
+</div>
+
+
+  <div class="timer-container">   
+    <p id="countdown">25:00</p>
+    </div>
+<div class="container-timer"> 
+  <button id="start-button" type="button">Start timer</button>
+
+  <button id="pause-button" type="button" disabled>Pause timer</button>
+</div>
+
+
+
+  <script>
+    const startingMinutes = 25;
+    let time = startingMinutes * 60;
+    const countdownEl = document.getElementById("countdown");
+    const startButton = document.getElementById("start-button");
+    const pauseButton = document.getElementById("pause-button");
+    let intervalId;
+
+    startButton.addEventListener("click", startTimer);
+    pauseButton.addEventListener("click", pauseTimer);
+
+    function startTimer() {
+      intervalId = setInterval(updateCountdown, 1000);
+      startButton.disabled = true;
+      pauseButton.disabled = false;
+    }
+
+    function pauseTimer() {
+      clearInterval(intervalId);
+      startButton.disabled = false;
+      pauseButton.disabled = true;
+    }
+
+    function updateCountdown() {
+      const minutes = Math.floor(time / 60);
+      let seconds = time % 60;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+      countdownEl.innerHTML = `${minutes}:${seconds}`;
+      time--;
+      if (time < 0) {
+        clearInterval(intervalId);
+        countdownEl.innerHTML = "Time's up!";
+        alert("Timer has ended!");
+        startButton.disabled = false;
+        pauseButton.disabled = true;
+      }
+    }
+  </script>
+{% endblock %}

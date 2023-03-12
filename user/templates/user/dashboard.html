@@ -1,0 +1,12 @@
+
+{% extends 'task/base.html' %}
+{% block content %}
+<h1>Dashboard</h1>
+<p>New tasks: {{ new_count }}</p>
+<p>Tasks in progress: {{ in_progress_count }}</p>
+<p>Completed tasks: {{ completed_count }} ({{ completed_percentage }}% of all tasks)</p>
+<div class="pie-container">
+    <img src="data:image/png;base64,{{ chart_image }}" alt="Task Status Chart" class="pie-chart"/>
+</div>
+
+{% endblock %}

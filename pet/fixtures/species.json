@@ -1,0 +1,9 @@
+[
+    {"model": "pet.species", "pk": 1, "fields": {"name": "Armadillo","sprite_sheet": "armadillo.png","sprite": "armadillo.png"}},
+    {"model": "pet.species", "pk": 2, "fields": {"name": "Cat","sprite_sheet": "cat.png", "sprite": "cat.png"}},
+    {"model": "pet.species", "pk": 3, "fields": {"name": "Cobra","sprite_sheet": "cobra.png","sprite": "cobra.png"}},
+    {"model": "pet.species", "pk": 4, "fields": {"name": "Fox", "sprite_sheet": "fox.png","sprite": "fox.png"}},
+    {"model": "pet.species", "pk": 5, "fields": {"name": "Squirrel","sprite_sheet": "squirrel.png","sprite": "squirrel.png"}},
+    {"model": "pet.species", "pk": 6, "fields": {"name": "Hedgehog", "sprite_sheet": "hedgehog.png","sprite": "hedgehog.png"}}
+]
+  

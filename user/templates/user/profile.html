@@ -1,15 +1,64 @@
-
-
+{% extends 'task/base.html' %}
 {% block content %}
-<h1>Profile</h1>
-<p>Username: {{ request.user.username }}</p>
-<p>Email: {{ request.user.email }}</p>
-<p>New tasks: {{ new_count }}</p>
-<p>Tasks in progress: {{ in_progress_count }}</p>
-<p>Completed tasks: {{ completed_count }}</p>
-<p>Percentage completed: {{ completed_percentage }}%</p>
+  <h1>Profile</h1>
+  <p>Username: {{ request.user.username }}</p>
+  <p>Email: {{ request.user.email }}</p>
 
-<img src="{{ task_status_image }}" alt="Task Status Pie Chart">
-<a href="{% url 'tasks' %}">Go back</a>
+  {% if pet %}
+    <h1>My Pet</h1>
+    <p>Name: {{ pet.name }}</p>
+    <p>Species: {{ pet.species.name }}</p>
+  {% else %}
+    <h1>No Pets Found</h1>
+  {% endif %}
+
+  {% if user.pet %}
+    {% load static %}
+    <canvas id="animation-canvas" width="200" height="200"></canvas>
+    <script>
+        // Load sprite sheet image
+        const spriteSheet = new Image();
+        spriteSheet.src = "{% static 'pet/sprite/' %}{{ user.pet.species.name }}.png";
+    
+        // Define the dimensions of each frame in the sprite sheet
+        const frameWidth = 32;
+        const frameHeight = 32;
+    
+        // Define the number of frames in the sprite sheet
+        const numFrames = 4;
+    
+        // Define the list of Rect objects that represent each frame in the sprite sheet
+        const frames = [...Array(numFrames).keys()].map(x => ({
+            x: x * frameWidth,
+            y: 0,
+            width: frameWidth,
+            height: frameHeight,
+        }));
+    
+        // Set up the animation on the canvas
+        const canvas = document.getElementById("animation-canvas");
+        const ctx = canvas.getContext("2d");
+        let currentFrame = 0;
+        const frameRate = 10;
+    
+        function animate() {
+            // Draw the current frame of the animation
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(spriteSheet, frames[currentFrame].x, frames[currentFrame].y, frames[currentFrame].width, frames[currentFrame].height, 0, 0, canvas.width, canvas.height);
+    
+            // Update the current frame of the animation
+            currentFrame = (currentFrame + 1) % numFrames;
+    
+            // Control the frame rate
+            setTimeout(animate, 1000 / frameRate);
+        }
+    
+        // Start the animation when the sprite sheet image has loaded
+        spriteSheet.onload = animate;
+    </script>
+  {% else %}
+  {% endif %}
+
+  <a href="{% url 'tasks' %}">Go back</a>
 
 {% endblock %}

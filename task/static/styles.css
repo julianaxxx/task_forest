@@ -1,0 +1,32 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #ddd;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  td:first-child {
+    width: 50%;
+  }
+  
+  td {
+    width: 25%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  #trash{
+    max-width: 30px;
+    max-height: 20px;}
+
+      

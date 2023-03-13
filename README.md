@@ -1,4 +1,4 @@
-# Task Manager
+# Task Forest
 
 Task Forest:A Gamified Task Manager with Virtual Pet and Pomodoro Timer
 
